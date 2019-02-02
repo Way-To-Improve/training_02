@@ -3,7 +3,6 @@
  This code belongs to Way To Improve(W2I)
 */
  namespace model;
- include('../config/db_connect.php');
 /**
  *
  */
@@ -16,14 +15,18 @@ class loginModel
  */
   public function checkUser($username,$password)
   {
+    include('..\config\db_connect.php');
   	$sql = <<<EOD
-  	select 
-  	count(*) from users 
-  	where 
-  	Name = $username and Password = $password
+  	select
+  	* from users
+  	where
+  	Name = :name and Password = :pwd
 EOD;
-  	$count = $conn->query($sql);
-  	if($count == 1){
+  	$result = $conn->prepare($sql);
+    $result->bindValue(':name', $username);
+    $result->bindValue(':pwd', $password);
+    $result->execute();
+  	if($result->rowCount() > 0){
   		return true;
   	}else{
   		return false;
