@@ -22,9 +22,9 @@ $.ajax({
         $('p#message').css("color","green");
       }else{
         $('p#message').css("color","red");
-      }      
+      }
     },
-    error: function(e) { 
+    error: function(e) {
       $('p#message').text(e);
     }
 
