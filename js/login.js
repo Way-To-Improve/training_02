@@ -14,12 +14,12 @@ $.ajax({
     type: "POST",
     url: "../controller/loginController.php",
     data: data,
-    async : false,
     dataType:'JSON',
     success: function(response){
       $('p#message').text(response.message);
       if(response.status == 'OK'){
         $('p#message').css("color","green");
+        window.location.href = "../view/search.html";
       }else{
         $('p#message').css("color","red");
       }
